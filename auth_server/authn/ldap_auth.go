@@ -59,6 +59,7 @@ func NewLDAPAuth(c *LDAPAuthConfig) (*LDAPAuth, error) {
 
 //How to authenticate user, please refer to https://github.com/go-ldap/ldap/blob/master/example_test.go#L166
 func (la *LDAPAuth) Authenticate(account string, password PasswordString) (bool, Labels, error) {
+        glog.V(2).Infof("Authenticate...")
 	if account == "" || password == "" {
 		return false, nil, NoMatch
 	}
@@ -248,6 +249,7 @@ func (la *LDAPAuth) getLabelAttributes() ([]string, error) {
 		if mapping.Attribute == "" {
 			return nil, fmt.Errorf("Label %s is missing 'attribute' to map from", key)
 		}
+                glog.V(2).Infof("LabelAttribute %s = %s", key, mapping.Attribute)
 		labelAttributes[i] = mapping.Attribute
 		i++
 	}
@@ -255,6 +257,7 @@ func (la *LDAPAuth) getLabelAttributes() ([]string, error) {
 }
 
 func (la *LDAPAuth) getLabelsFromMap(attrMap map[string][]string) (map[string][]string, error) {
+        glog.V(2).Infof("Read Label Maps...")
 	labels := make(map[string][]string)
 	for key, mapping := range la.config.LabelMaps {
 		if mapping.Attribute == "" {
@@ -270,6 +273,7 @@ func (la *LDAPAuth) getLabelsFromMap(attrMap map[string][]string) (map[string][]
 					mappingValues[i] = cn
 				}
 			}
+                        glog.V(2).Infof("LabelAttribute %s = %s", key, mappingValues)
 			labels[key] = mappingValues
 		}
 	}

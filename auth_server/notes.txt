@@ -1,0 +1,4 @@
+docker build -t ragetti/docker_auth:1 .
+
+env GOOS=linux GOARCH=386 go build
+
