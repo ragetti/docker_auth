@@ -1,2 +1,2 @@
-docker build -t ragetti/docker_auth:8 -f Dockerfile_new .
+docker build -t ragetti/docker_auth:9 -f Dockerfile_new .
 
